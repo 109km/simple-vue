@@ -1,0 +1,27 @@
+{
+  "name": "simple-vue",
+  "version": "1.0.0",
+  "description": "A simple implementation of vue.",
+  "main": "webpack.config.js",
+  "dependencies": {},
+  "devDependencies": {
+    "path": "^0.12.7",
+    "webpack": "^4.8.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/109km/simple-vue.git"
+  },
+  "keywords": [
+    "vue"
+  ],
+  "author": "shaoxinheng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/109km/simple-vue/issues"
+  },
+  "homepage": "https://github.com/109km/simple-vue#readme"
+}

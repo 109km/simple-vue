@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script>
+    function Observer(obj, key, value) {
+      var dep = new Dep();
+      if (Object.prototype.toString.call(value) == '[object Object]') {
+        Object.keys(value).forEach(function(key) {
+          new Observer(value, key, value[key])
+        })
+      };
+
+      Object.defineProperty(obj, key, {
+        enumerable: true,
+        configurable: true,
+        get: function() {
+          if (Dep.target) {
+            console.log(`${key}:getter`);
+            dep.addSub(Dep.target);
+          };
+          return value;
+        },
+        set: function(newVal) {
+          value = newVal;
+          dep.notify();
+        }
+      })
+    }
+    
+    function Watcher(fn) {
+      this.update = function() {
+        console.log('update');
+        Dep.target = this;
+        fn();
+        Dep.target = null;
+      }
+      this.update();
+    }
+
+    function Dep() {
+      this.subs = [];
+
+      this.addSub = function(watcher) {
+        this.subs.push(watcher);
+      }
+
+      this.notify = function() {
+        this.subs.forEach(function(watcher) {
+          watcher.update();
+        });
+      }
+    }
+
+    var obj = {
+      a: 1,
+      b: 2,
+      c: 3
+    }
+    Object.keys(obj).forEach(function(key) {
+      new Observer(obj, key, obj[key])
+    });
+    new Watcher(function() {
+      document.querySelector("#test").innerHTML = obj.a + obj.b;
+    })
+  </script>
+</body>
+
+</html>
