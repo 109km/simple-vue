@@ -43,4 +43,59 @@ export const compileDirectives = function(el, attrs) {
       expression: value
     })
   }
+
+  if (dirs.length) return makeNodeLinkFn(dirs)
+
+}
+
+function makeNodeLinkFn(directives) {
+  return function nodeLinkFn(vm, el) {
+    let i = directives.length
+    while (i--) {
+      vm._bindDir(directives[i], el)
+    }
+  }
+}
+
+// only for the root element
+export const compile = function(el, options) {
+  if (el.hasChildNodes()) return function(vm, el) {
+    const nodeLink = compileNode(el, options)
+    const childLink = compileNodeList(el.childNodes, options)
+    nodeLink && nodeLink(vm, el)
+    childLink && childLink(vm, el)
+    vm._directives.forEach((v) => {
+      v._bind()
+    })
+  }
+  else return function(vm, el) {
+    compileNode(el, options)
+    vm._directives.forEach((v) => {
+      v._bind()
+    })
+  }
+}
+
+function compileNodeList(nodeList, options) {
+  const links = []
+  for (var i = 0; i < nodeList.length; i++) {
+    const el = nodeList[i]
+    let link = compileNode(el, options)
+    link && links.push(link)
+    if (el.hasChildNodes()) {
+      link = compileNodeList(el.childNodes, options)
+      link && links.push(link)
+    }
+  }
+
+  return function(vm, el) {
+    let i = links.length
+    while (i--) {
+      links[i](vm, el)
+    }
+  }
+}
+
+function compileNode(el, options) {
+  return compileDirectives(el, el.attributes)
 }
