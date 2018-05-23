@@ -9,6 +9,7 @@ class Observer {
   }
 }
 
+// traverse object's each attribute
 Observer.prototype.walk = function(obj) {
   let keys = Object.keys(obj),
     i = 0,
@@ -30,11 +31,15 @@ Observer.prototype.addVm = function(vm) {
 }
 
 export function observe(value, vm) {
+  // `value` equals `data`
   let ob = new Observer(value)
+
+  // save vm
   ob.addVm(vm)
   return ob
 }
 
+// Define reactive attribute
 function defineReactive(obj, key, value) {
   let dep = new Dep()
 
@@ -48,12 +53,12 @@ function defineReactive(obj, key, value) {
   let setter = property && property.set
 
   // collect dependencies
-  Object.defineProperty({
+  Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
     get() {
       let val = getter ? getter.call(obj) : val
-      // If is triggered by inner dependencies collecting progress
+      // If is triggered by inner collecting dependencies progress
       if (Dep.target) {
         dep.depend()
       }
@@ -65,6 +70,8 @@ function defineReactive(obj, key, value) {
         return
       }
       val = newVal
+
+      // If changed, trigger dependencies
       dep.notify()
     }
   })

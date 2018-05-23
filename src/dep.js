@@ -24,7 +24,6 @@ Dep.prototype.depend = function() {
   Dep.target.addDep(this)
 }
 
-
 Dep.prototype.removeSub = function(sub) {
   this.subs.$remove(sub)
 }

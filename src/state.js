@@ -39,7 +39,7 @@ export default function(Vue) {
       this._proxy(key)
     }
 
-    // observe init data
+    // observe `data` object
     observe(data, this)
   }
 

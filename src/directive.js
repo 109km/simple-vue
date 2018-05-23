@@ -1,6 +1,6 @@
 import {
   extend
-} from '.util.js'
+} from './util.js'
 import Watcher from './watcher.js'
 
 export default class Directives {

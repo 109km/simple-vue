@@ -9,7 +9,7 @@ class Vue {
   // init the instance
   init(options) {
     this._directives = []
-    this._waterchers = []
+    this._watchers = []
 
     let el = document.querySelector(options.el)
 

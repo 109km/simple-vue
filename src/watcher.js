@@ -12,13 +12,14 @@ export default class Watcher {
     this.id = ++uid
     this.deps = []
     this.depIds = new Set()
-    this.getter = function() {
-      return vm[expOrFn]
-    }
-    this.setter = function(vm, value) {
-      vm[expOrFn] = value
-    }
+    // Call `get` immediately when `watcher` instance is created
     this.value = this.get()
+  }
+  getter() {
+    return this.vm[this.expOrFn]
+  }
+  setter(value) {
+    this.vm[this.expOrFn] = value
   }
   update() {
     this.run()
@@ -33,12 +34,12 @@ export default class Watcher {
   }
   get() {
     Dep.target = this
-    let value = this.getter.call(this.vm, this.vm)
+    let value = this.getter.call(this.vm)
     Dep.target = null
     return value
   }
   set(value) {
-    this.setter.call(this.vm, this.vm, value)
+    this.setter.call(this.vm, value)
   }
   addDep(dep) {
     if (!this.depIds.has(dep.id)) {
