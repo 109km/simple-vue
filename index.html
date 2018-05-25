@@ -13,7 +13,7 @@
   <script>
     function Observer(obj, key, value) {
       var dep = new Dep();
-      if (Object.prototype.toString.call(value) == '[object Object]') {
+      if (Object.prototype.toString.call(value) === '[object Object]') {
         Object.keys(value).forEach(function(key) {
           new Observer(value, key, value[key])
         })
@@ -23,10 +23,13 @@
         enumerable: true,
         configurable: true,
         get: function() {
+          // `watcher` is reading this value
+          // so that add the current watcher to dependencies
           if (Dep.target) {
             console.log(`${key}:getter`);
             dep.addSub(Dep.target);
           };
+          console.log(dep);
           return value;
         },
         set: function(newVal) {
@@ -35,7 +38,7 @@
         }
       })
     }
-    
+
     function Watcher(fn) {
       this.update = function() {
         console.log('update');
@@ -69,7 +72,12 @@
       new Observer(obj, key, obj[key])
     });
     new Watcher(function() {
-      document.querySelector("#test").innerHTML = obj.a + obj.b;
+      console.log('watch');
+      document.querySelector("#test").innerHTML = obj.a;
+    })
+    new Watcher(function() {
+      console.log('watch2');
+      document.querySelector("#test").innerHTML = obj.a + 2;
     })
   </script>
 </body>
