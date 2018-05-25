@@ -5,7 +5,6 @@ class Vue {
   constructor(options) {
     this.init(options)
   }
-
   // init the instance
   init(options) {
     this._directives = []

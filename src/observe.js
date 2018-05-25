@@ -57,7 +57,7 @@ function defineReactive(obj, key, value) {
     enumerable: true,
     configurable: true,
     get() {
-      let val = getter ? getter.call(obj) : val
+      let val = getter ? getter.call(obj) : value
       // If is triggered by inner collecting dependencies progress
       if (Dep.target) {
         dep.depend()
@@ -65,7 +65,7 @@ function defineReactive(obj, key, value) {
       return val
     },
     set(newVal) {
-      let val = getter ? getter.call(obj) : val
+      let val = getter ? getter.call(obj) : value
       if (newVal === val) {
         return
       }

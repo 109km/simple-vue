@@ -25,13 +25,16 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true,
-    hot:true
+    hot:true,
+    inline:true
   },
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins:[
+    new webpack.HotModuleReplacementPlugin()
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -51,7 +54,6 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    }),
-    new webpack.HotModuleReplacementPlugin()
+    })
   ])
 }

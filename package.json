@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A simple implementation of vue.",
   "main": "webpack.config.js",
-  "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -16,7 +15,7 @@
     "sass-loader": "^6.0.6",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.4",
-    "webpack-dev-server": "^2.11.2"
+    "webpack-dev-server": "^3.0.0"
   },
   "scripts": {
     "dev": "webpack",
