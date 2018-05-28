@@ -51,7 +51,6 @@ function defineReactive(obj, key, value) {
 
   let getter = property && property.get
   let setter = property && property.set
-
   // collect dependencies
   Object.defineProperty(obj, key, {
     enumerable: true,
@@ -69,8 +68,11 @@ function defineReactive(obj, key, value) {
       if (newVal === val) {
         return
       }
-      val = newVal
-
+      if (setter) {
+        setter.call(obj, newVal)
+      }else{
+        value = newVal
+      }
       // If changed, trigger dependencies
       dep.notify()
     }

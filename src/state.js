@@ -38,7 +38,6 @@ export default function(Vue) {
       // so that data's source is all from `this._data`
       this._proxy(key)
     }
-
     // observe `data` object
     observe(data, this)
   }

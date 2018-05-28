@@ -31,7 +31,7 @@ export const compileDirectives = function(el, attrs) {
       }
     }
   }
-
+  
   function pushDir(dirName, def, arg, value) {
     dirs.push({
       el: el,
@@ -39,6 +39,7 @@ export const compileDirectives = function(el, attrs) {
       rawName: name,
       arg: arg,
       value: value,
+      def:def,
       rawValue: value,
       expression: value
     })

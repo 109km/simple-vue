@@ -32,7 +32,6 @@ export default class Directives {
     }
 
     let watcher = this._watcher = new Watcher(this.vm, this.expression, this._update)
-
     if (this.update) {
       this.update(watcher.value)
     }
