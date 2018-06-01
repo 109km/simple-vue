@@ -30,7 +30,7 @@ export default class Directives {
     } else {
       this._update = function() {}
     }
-
+    // create a watcher for the related directive
     let watcher = this._watcher = new Watcher(this.vm, this.expression, this._update)
     if (this.update) {
       this.update(watcher.value)

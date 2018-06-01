@@ -49,6 +49,7 @@ export const compileDirectives = function(el, attrs) {
 
 }
 
+// connect `directive` and `compile`
 function makeNodeLinkFn(directives) {
   return function nodeLinkFn(vm, el) {
     let i = directives.length
@@ -77,6 +78,7 @@ export const compile = function(el, options) {
   }
 }
 
+// compile the nodes which have children
 function compileNodeList(nodeList, options) {
   const links = []
   for (var i = 0; i < nodeList.length; i++) {
